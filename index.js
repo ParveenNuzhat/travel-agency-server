@@ -67,7 +67,7 @@ async function run() {
     });
 
     //Confirm Blogs
-    app.put("/updateStatus/:id", (req, res) => {
+    // app.put("/updateStatus/:id", (req, res) => {
     //   const id = req.params.id;
     //   // const updatedStatus = req.body;
     //   const filter = { _id: ObjectId(id) };
@@ -80,21 +80,20 @@ async function run() {
     //       res.json(result);
     //     });
     // });
-    const id = req.params.id;
-    // const newOrderStatus = req.body;
-    const filter = { _id: ObjectId(id) };
-    const options = { upsert: true };
-    const updateDoc = {
-        $set: {
-            status: 'Approved'
+    //   const id = req.params.id;
+    //   // const newOrderStatus = req.body;
+    //   const filter = { _id: ObjectId(id) };
+    //   const options = { upsert: true };
+    //   const updateDoc = {
+    //     $set: {
+    //       status: "Approved",
+    //     },
+    //   };
+    //   const result = await blogCollection.updateOne(filter, updateDoc, options);
+    //   console.log("will be updating", id, result, updateDoc);
+    //   res.json(result);
+    // });
 
-        },
-    };
-    const result = await blogCollection.updateOne(filter, updateDoc, options);
-    console.log('will be updating', id, result, updateDoc)
-    res.json(result);
-   
-   
     // Add user
     app.post("/users", async (req, res) => {
       const data = await usersCollection.insertOne(req.body);

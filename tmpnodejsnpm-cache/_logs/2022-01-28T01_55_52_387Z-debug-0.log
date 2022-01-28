@@ -31,3 +31,7 @@
 25 timing npm:load:timers Completed in 1ms
 26 timing npm:load:configScope Completed in 0ms
 27 timing npm:load Completed in 21ms
+28 timing command:run Completed in 72781535ms
+29 verbose exit 3221225786
+30 timing npm Completed in 72781711ms
+31 verbose code 3221225786
