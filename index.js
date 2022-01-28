@@ -58,12 +58,21 @@ async function run() {
       res.json(result);
     });
 
-    //Delete Blogs
+    // //Delete Blogs
+    // app.delete("/blogs/:id", async (req, res) => {
+    //   const data = await blogCollection.findOneAndDelete({
+    //     _id: ObjectId(req.params.id),
+    //   });
+    //   res.json(data);
+    //   console.log(data);
+    // });
+
+    // Delete from all bookings
     app.delete("/blogs/:id", async (req, res) => {
-      const data = await blogCollection.findOneAndDelete({
-        _id: ObjectId(req.params.id),
-      });
-      res.json(data);
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await blogCollection.deleteOne(query);
+      res.send(result);
     });
 
     //Confirm Blogs
