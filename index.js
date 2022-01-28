@@ -58,16 +58,7 @@ async function run() {
       res.json(result);
     });
 
-    // //Delete Blogs
-    // app.delete("/blogs/:id", async (req, res) => {
-    //   const data = await blogCollection.findOneAndDelete({
-    //     _id: ObjectId(req.params.id),
-    //   });
-    //   res.json(data);
-    //   console.log(data);
-    // });
-
-    // Delete from all bookings
+    // Delete from all blogs
     app.delete("/blogs/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
@@ -77,19 +68,33 @@ async function run() {
 
     //Confirm Blogs
     app.put("/updateStatus/:id", (req, res) => {
-      const id = req.params.id;
-      // const updatedStatus = req.body;
-      const filter = { _id: ObjectId(id) };
-      //console.log(updatedStatus);
-      blogCollection
-        .updateOne(filter, {
-          $set: { status: "Approved" },
-        })
-        .then((result) => {
-          res.json(result);
-        });
-    });
+    //   const id = req.params.id;
+    //   // const updatedStatus = req.body;
+    //   const filter = { _id: ObjectId(id) };
+    //   //console.log(updatedStatus);
+    //   blogCollection
+    //     .updateOne(filter, {
+    //       $set: { status: "Approved" },
+    //     })
+    //     .then((result) => {
+    //       res.json(result);
+    //     });
+    // });
+    const id = req.params.id;
+    // const newOrderStatus = req.body;
+    const filter = { _id: ObjectId(id) };
+    const options = { upsert: true };
+    const updateDoc = {
+        $set: {
+            status: 'Approved'
 
+        },
+    };
+    const result = await blogCollection.updateOne(filter, updateDoc, options);
+    console.log('will be updating', id, result, updateDoc)
+    res.json(result);
+   
+   
     // Add user
     app.post("/users", async (req, res) => {
       const data = await usersCollection.insertOne(req.body);
