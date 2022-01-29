@@ -129,6 +129,13 @@ async function run() {
         res(result);
       }
     });
+
+    // POST BLOG BY ADMIN
+    app.post("/adminBlogs", async (req, res) => {
+      const blog = req.body;
+      const result = await blogCollection.insertOne(blog);
+      res.json(result);
+    });
   } finally {
     // await client.close();
   }
