@@ -69,9 +69,10 @@ async function run() {
     //  blog status update
     app.put("/updateStatus/:id", (req, res) => {
       const id = req.params.id;
+      console.log(id);
       // const updatedStatus = req.body;
-      const filter = { _id: objectId(id) };
-      //console.log(updatedStatus);
+      const filter = { _id: ObjectId(id) }; //_id: ObjectId(6234545686846)
+      //console.log(updatedStatus);           //_id: ObjectId(65595845466)
       blogCollection
         .updateOne(filter, {
           $set: { status: "Approved" },
@@ -79,24 +80,8 @@ async function run() {
         .then((result) => {
           res.json(result);
         });
-    });
-    //  Blog info update
-    app.put("/updateInfo/:id", async (req, res) => {
-      const id = req.params.id;
-      const updatedInfo = req.body;
-      const filter = { _id: objectId(id) };
-      const options = { upsert: true };
-      const updateDoc = {
-        $set: {
-          location: updatedInfo.location,
-          date: updatedInfo.date,
-          cost: updatedInfo.cost,
-          description: updatedInfo.description,
-        },
-      };
-      const result = await blogCollection.updateOne(filter, updateDoc, options);
+
       console.log("updating", id);
-      res.json(result);
     });
 
     // Add user
