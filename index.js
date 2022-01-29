@@ -66,31 +66,36 @@ async function run() {
       res.send(result);
     });
 
-    //Confirm Blogs
+    //  blog status update
     app.put("/updateStatus/:id", (req, res) => {
-      //   const id = req.params.id;
-      //   // const updatedStatus = req.body;
-      //   const filter = { _id: ObjectId(id) };
-      //   //console.log(updatedStatus);
-      //   blogCollection
-      //     .updateOne(filter, {
-      //       $set: { status: "Approved" },
-      //     })
-      //     .then((result) => {
-      //       res.json(result);
-      //     });
-      // });
       const id = req.params.id;
-      // const newOrderStatus = req.body;
-      const filter = { _id: ObjectId(id) };
+      // const updatedStatus = req.body;
+      const filter = { _id: objectId(id) };
+      //console.log(updatedStatus);
+      blogCollection
+        .updateOne(filter, {
+          $set: { status: "Approved" },
+        })
+        .then((result) => {
+          res.json(result);
+        });
+    });
+    //  Blog info update
+    app.put("/updateInfo/:id", async (req, res) => {
+      const id = req.params.id;
+      const updatedInfo = req.body;
+      const filter = { _id: objectId(id) };
       const options = { upsert: true };
       const updateDoc = {
         $set: {
-          status: "Approved",
+          location: updatedInfo.location,
+          date: updatedInfo.date,
+          cost: updatedInfo.cost,
+          description: updatedInfo.description,
         },
       };
       const result = await blogCollection.updateOne(filter, updateDoc, options);
-      console.log("will be updating", id, result, updateDoc);
+      console.log("updating", id);
       res.json(result);
     });
 
